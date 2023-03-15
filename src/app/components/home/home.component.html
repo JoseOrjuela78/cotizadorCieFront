@@ -1,0 +1,164 @@
+<div class="container">
+    <div class="row">
+
+        <form [formGroup]="formBrands">
+
+            <div class="col-6 mb-2">
+                <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Cliente :</span>
+                    <input (blur)="createQuote()" formControlName="cliente" type="text" class="form-control" placeholder="Razon social" aria-label="Username" aria-describedby="addon-wrapping">
+                </div>
+            </div>
+
+            <div *ngIf="statusForms" class="col-6 mb-2">
+                <div class="form-floating">
+                    <select formControlName="selectedBrand" class="form-select" id="floatingSelect" aria-label="Floating label select example" (change)="getRefs()">
+                    <option *ngFor="let e of brandsList" [ngValue]="e.id_proveedor">{{e.proveedor | uppercase}} - {{e.id_proveedor}}</option>
+                    </select>
+                    <label for="floatingSelect">select menu brands</label>
+                </div>
+            </div>
+
+            <div *ngIf="statusForms" class="row">
+                <div class="col-10 mb-2">
+
+                    <div class="form-floating">
+                        <select formControlName="part-number" class="form-select" aria-label="Default select example">
+                    <option *ngFor="let e of refsList" id="floatingSelect" [ngValue]="e.id_detalle">{{e.part_number}} : {{e.descripcion}}</option>
+                    </select>
+                        <label for="floatingSelect">select menu part_number</label>
+                    </div>
+
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-danger mt-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                   <a type="button" class="pointer" style="color: #f7f6f4">
+                     <mat-icon>note_add</mat-icon>
+                   </a>
+                 </button>
+                </div>
+            </div>
+
+
+
+        </form>
+
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-12">
+            <mat-card>
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Index">
+                        <th class="header" mat-header-cell *matHeaderCellDef> No. </th>
+                        <td mat-cell *matCellDef="let element"> {{element.index}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Part_number">
+                        <th class="header" mat-header-cell *matHeaderCellDef> Part_number </th>
+                        <td mat-cell *matCellDef="let element"> {{element.part_number}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="Brand">
+                        <th class="header" mat-header-cell *matHeaderCellDef> Brand </th>
+                        <td mat-cell *matCellDef="let element"> {{element.proveedor | uppercase}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Description">
+                        <th class="header" mat-header-cell *matHeaderCellDef> Description </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descripcion}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Cantidad">
+                        <th class="header" mat-header-cell *matHeaderCellDef> Cantidad </th>
+                        <td mat-cell *matCellDef="let element"> {{element.cantidad}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Peso_total">
+                        <th class="header" mat-header-cell *matHeaderCellDef> Peso_total </th>
+                        <td mat-cell *matCellDef="let element"> {{element.peso_total}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Preciolistacop">
+                        <th class="header" mat-header-cell *matHeaderCellDef> Preciolistacop </th>
+                        <td mat-cell *matCellDef="let element"> {{element.preciolistaCOP | currency:'COP':'symbol-narrow':'1.0-0'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Preciototal">
+                        <th class="header" mat-header-cell *matHeaderCellDef> Preciototal </th>
+                        <td mat-cell *matCellDef="let element"> {{element.preciototal | currency:'COP':'symbol-narrow':'1.0-0'}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Actions">
+                        <th class="header" mat-header-cell *matHeaderCellDef> Actions </th>
+                        <td mat-cell *matCellDef="let element">
+                            <a type="button" class="pointer" matTooltip="ver datos" style="color: #2649C3">
+                                <mat-icon>search</mat-icon>
+                            </a>
+                            <a type="button" class="pointer" style="color: #FFD433">
+                                <mat-icon>edit</mat-icon>
+                            </a>
+                            <a type="button" class="pointer" style="color: #FF4233">
+                                <mat-icon>delete</mat-icon>
+                            </a>
+                        </td>
+                    </ng-container>
+
+
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+                    <tr mat-row (click)="clickedRows.add(row)" [class.demo-row-is-clicked]="clickedRows.has(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+                </mat-paginator>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Datos Requeridos</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="formQuoteDet">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Cantidad:</label>
+                        <input formControlName="cantidad" type="number" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Largo Cm :</label>
+                        <input formControlName="largoCM" type="number" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Ancho Cm:</label>
+                        <input formControlName="anchoCM" type="number" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Alto Cm:</label>
+                        <input formControlName="altoCM" type="number" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Peso kg:</label>
+                        <input formControlName="peso_kg" type="number" class="form-control" id="recipient-name">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="createQuoteDet()">Cotizar</button>
+            </div>
+        </div>
+    </div>
+</div>
