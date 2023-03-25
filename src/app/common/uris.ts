@@ -9,11 +9,18 @@ usuarios:{
 quotes:{
   createQuote: BASE.BACKEND + 'api/quote',
   createQuoteDet: BASE.BACKEND + 'api/quote-detail',
+  updateQuoteDet: BASE.BACKEND + 'api/quote-detail',
   generateQuote: BASE.BACKEND + 'api/quote-generate',
-  getQuotes: BASE.BACKEND + 'api/quote-get'
+  getQuotes: BASE.BACKEND + 'api/quote-get',
+  closeQuote: BASE.BACKEND + 'api/quote-close',
+  closeQuoteRow: BASE.BACKEND + 'api/quote-close-row',
+  deleteQuoteDet: BASE.BACKEND + 'api/quote-delete'
+
 },
-brands:{
-  getBrands: BASE.BACKEND + 'api/brands-get'
+peso:{
+
+  cpeso: BASE.BACKEND + 'api/quote-cpeso'
+
 },
 
 refs:{

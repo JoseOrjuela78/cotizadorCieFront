@@ -5,6 +5,7 @@ import { IQuote } from 'src/app/common/models/cotizacion';
 import { QuotesService } from '../../services/quotes.service';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -16,10 +17,24 @@ export class HomeComponent implements OnInit {
   dataSource = new MatTableDataSource<IQuote>([]);
   clickedRows = new Set<IQuote>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  brandsList:any[] = [];
+  quoteDetList:any[] = [];
+  quoteTotList:any[] = [];
+  viewDta = {
+    peso_real:0,
+    zona:0,
+    flete:0,
+    moneda:'',
+    ajuste200USD :0,
+    costoLandedUSD :0,
+    costo_unitario: 0,
+    costo_total: 0
+  };
   refsList:any[] = [];
   statusForms: Boolean = false;
+  addButton:Boolean = true;
+  cotizarButton:Boolean = true;
   id_quote: number = 0;
+  total: number = 0;
 
   public formBrands: any;
   public formQuoteDet: any;
@@ -28,43 +43,32 @@ export class HomeComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-  }
+    }
 
 
   constructor(private quoteSvc: QuotesService) {
   this.formBrands = new FormGroup({
-    'selectedBrand' : new FormControl('',[Validators.required]),
+    'searchPart' : new FormControl('',[Validators.required]),
     'cliente' : new FormControl('',[Validators.required]),
     'part-number' : new FormControl('',[Validators.required])
   });
   this.formQuoteDet = new FormGroup({
-    "id_cotizacion" : new FormControl('1',[Validators.required]),
-    "id_detalle": new FormControl('10',[Validators.required]),
-    "cantidad": new FormControl('4',[Validators.required]),
-     "largoCM": new FormControl('100',[Validators.required]),
-     "anchoCM": new FormControl('50',[Validators.required]),
-     "altoCM":new FormControl('40',[Validators.required]),
-     "peso_kg": new FormControl('65.5',[Validators.required]),
+
+    "id_cotizacion" : new FormControl('',[Validators.required]),
+    "id_cotdetalle" : new FormControl(''),
+    "id_detalle": new FormControl('',[Validators.required]),
+    "cantidad": new FormControl('',[Validators.required]),
+     "largoCM": new FormControl('',[Validators.required]),
+     "anchoCM": new FormControl('',[Validators.required]),
+     "altoCM":new FormControl('',[Validators.required]),
+     "peso_kg": new FormControl('',[Validators.required]),
   });
    }
 
   ngOnInit(): void {
     this.listar(0);
-    this.getBrands();
 
   }
-
-  getBrands(){
-    this.brandsList = [];
-
-    this.quoteSvc.getBrands().subscribe( (response:any)=>{
-
-      if(response.body.list.length > 0){
-        this.brandsList = response.body.list;
-     }
-     return
-    });
-  };
 
   listar(idquote: number){
     this.dataSource.data = [];
@@ -74,8 +78,10 @@ export class HomeComponent implements OnInit {
     };
 
     this.quoteSvc.getQuotes(idquote).subscribe( (response:any)=>{
+      this.total = response.body.total;
       let arr0: any [] = [];
       arr0 = response.body.list;
+      console.log(arr0);
 
       const ELEMENTDATA = new Array();
 
@@ -97,9 +103,6 @@ export class HomeComponent implements OnInit {
     return
   };
 
-
-
-
   decimales( num: number, dec: number){
     return Number(Number(num).toFixed(dec));
   }
@@ -107,13 +110,13 @@ export class HomeComponent implements OnInit {
 
   getRefs(){
 
-    const brand = this.formBrands.get('selectedBrand').value;
+    const key = this.formBrands.get('searchPart').value;
     this.refsList = [];
 
-    this.quoteSvc.getRefs(brand).subscribe( (response:any)=>{
+    this.quoteSvc.getRefs(key).subscribe( (response:any)=>{
 
       if(response.body.list.length > 0){
-      this.refsList =response.body.list;
+      this.refsList = response.body.list;
       };
       return
 
@@ -121,8 +124,8 @@ export class HomeComponent implements OnInit {
 
   }
 
-createQuote(){
-const cliente = this.formBrands.get('cliente').value;
+  createQuote(){
+  const cliente = this.formBrands.get('cliente').value;
 
 if (cliente == ''){
   this.statusForms = false;
@@ -144,27 +147,186 @@ if (cliente == ''){
   };
 
   createQuoteDet(){
+
+    this.cotizarButton = true;
     this.formQuoteDet.get('id_cotizacion').setValue(this.id_quote)
     const idDetalle = this.formBrands.get('part-number').value;
     this.formQuoteDet.get('id_detalle').setValue(idDetalle);
-     this.quoteSvc.createQuoteDet(this.formQuoteDet.value).subscribe( (response:any)=>{
 
-      const bd =  {
-        "id_detalle": idDetalle,
-        "id_cotdetalle": response.body.id_quote_detail
-          };
+  if (this.formQuoteDet.status == 'INVALID'){
+    console.log('debe completar datos');
+    return;
+  }
+
+
+  this.quoteSvc.cpeso(this.formQuoteDet.value).subscribe( (response:any)=>{
+
+
+ if(response.body.code == 201){
+  console.log(response.body.message);
+  return
+ };
+
+ this.quoteSvc.createQuoteDet(this.formQuoteDet.value).subscribe( (response:any)=>{
+
+  const bd =  {
+    "id_detalle": idDetalle,
+    "id_cotdetalle": response.body.id_quote_detail
+      };
+      this.quoteSvc.generateQuote(bd).subscribe( (response:any)=>{
+        this.listar(this.id_quote);
+        this.formQuoteDet.reset();
+
+      });
+
+  });
+
+});
+
+  };
+
+
+
+updateQuoteDet(){
+
+ this.quoteSvc.cpeso(this.formQuoteDet.value).subscribe( (response:any)=>{
+
+
+    if(response.body.code == 201){
+      console.log(response.body.message);
+      return
+     };
+
+     this.quoteSvc.updateQuoteDet(this.formQuoteDet.value).subscribe( (response:any)=>{
+
+       this.cotizarButton = false;
+      const bd = JSON.parse(response.body.data);
+
+
           this.quoteSvc.generateQuote(bd).subscribe( (response:any)=>{
-            console.log(response);
             this.listar(this.id_quote);
+            this.formQuoteDet.reset();
+
+          });
+
+      });
+
+  });
+
+}
+
+
+
+
+
+  closeQuote(){
+
+    this.quoteDetList = [];
+
+    this.quoteSvc.closeQuote(this.id_quote).subscribe( (response:any)=>{
+
+      this.total = response.body.total;
+      this.addButton = false;
+
+      const arr = JSON.parse(response.body.rows);
+
+
+      if(arr.length){
+        this.quoteDetList = arr;
+
+        this.quoteDetList.forEach(Element =>{
+
+        this.quoteTotList = [];
+
+        this.quoteSvc.closeQuoteRow(Element.id_cotTotales,Element.id_cotizacion ).subscribe( (response:any)=>{
+
+          this.quoteTotList = JSON.parse(response.body.rows);
 
           });
 
 
-      });
+        });
 
+
+      }
+
+    });
+
+
+  };
+
+
+  newQuote(){
+    this.formBrands.reset();
+    this.dataSource.data = [];
+    this.quoteDetList = [];
+    this.quoteTotList = [];
+    this.refsList = [];
+    this.statusForms = false;
+    this.addButton = true;
+    this.id_quote = 0;
+    this.total = 0;
+    this.clearViewData();
+    return
+  }
+
+  deleteIdQuote(id:number){
+     this.quoteSvc.deleteIdQuoete(id).subscribe( (response:any)=>{
+      this.listar(this.id_quote);
+     });
+  };
+
+  viewData(
+    peso_real: number,
+    zona: number,
+    flete: number,
+    moneda: string,
+    ajuste200USD: number,
+    costoLandedUSD: number,
+    costo_unitario : number,
+    costo_total: number
+    ){
+
+      this.viewDta.peso_real = peso_real;
+      this.viewDta.zona = zona;
+      this.viewDta.flete = flete;
+      this.viewDta.moneda = moneda;
+      this.viewDta.ajuste200USD = ajuste200USD;
+      this.viewDta.costoLandedUSD = costoLandedUSD;
+      this.viewDta.costo_unitario = costo_unitario;
+      this.viewDta.costo_total = costo_total;
+      return;
 
   }
 
+  clearViewData(){
+    this.viewDta.peso_real = 0;
+    this.viewDta.zona = 0;
+    this.viewDta.flete = 0;
+    this.viewDta.moneda = '';
+    this.viewDta.ajuste200USD = 0;
+    this.viewDta.costoLandedUSD = 0;
+    this.viewDta.costo_unitario = 0;
+    this.viewDta.costo_total = 0;
+  }
 
+  editButton(
+    id_cotdetalle: number,
+    cantidad: number,
+    largoCM: number,
+    anchoCM: number,
+    altoCM: number,
+    peso_kg: number
+    ){
+    this.cotizarButton = false;
+    this.formQuoteDet.get('id_cotdetalle').setValue(id_cotdetalle);
+    this.formQuoteDet.get('cantidad').setValue(cantidad);
+    this.formQuoteDet.get('largoCM').setValue(largoCM);
+    this.formQuoteDet.get('anchoCM').setValue(anchoCM);
+    this.formQuoteDet.get('altoCM').setValue(altoCM);
+    this.formQuoteDet.get('peso_kg').setValue(peso_kg);
+    return
+
+  }
 
 }
