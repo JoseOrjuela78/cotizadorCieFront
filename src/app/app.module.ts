@@ -13,13 +13,17 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { UploadFilesComponent } from './components/upload-files/upload-files.component';
+import { NgxCsvParserModule } from 'ngx-csv-parser';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    NavbarComponent
+    NavbarComponent,
+    UploadFilesComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HttpClientModule,
     MatIconModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxCsvParserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

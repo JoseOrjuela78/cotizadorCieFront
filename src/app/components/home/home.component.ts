@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IQuote } from 'src/app/common/models/cotizacion';
 import { QuotesService } from '../../services/quotes.service';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -81,8 +82,6 @@ export class HomeComponent implements OnInit {
       this.total = response.body.total;
       let arr0: any [] = [];
       arr0 = response.body.list;
-      console.log(arr0);
-
       const ELEMENTDATA = new Array();
 
       arr0.forEach((element, index)=>{
@@ -148,14 +147,27 @@ if (cliente == ''){
 
   createQuoteDet(){
 
+    Swal.fire({
+      allowOutsideClick: false,
+      icon: 'info',
+      text:'Espere por favor...'
+
+    });
+    Swal.showLoading()
+
     this.cotizarButton = true;
     this.formQuoteDet.get('id_cotizacion').setValue(this.id_quote)
     const idDetalle = this.formBrands.get('part-number').value;
     this.formQuoteDet.get('id_detalle').setValue(idDetalle);
 
   if (this.formQuoteDet.status == 'INVALID'){
-    console.log('debe completar datos');
-    return;
+    Swal.fire({
+      allowOutsideClick: true,
+      icon: 'error',
+      title: 'Error',
+      text: 'Debe completar datos'
+       });
+       return
   }
 
 
@@ -163,9 +175,15 @@ if (cliente == ''){
 
 
  if(response.body.code == 201){
-  console.log(response.body.message);
-  return
- };
+
+  Swal.fire({
+    allowOutsideClick: true,
+    icon: 'error',
+    title: 'Error',
+    text: response.body.message
+     });
+     return
+  };
 
  this.quoteSvc.createQuoteDet(this.formQuoteDet.value).subscribe( (response:any)=>{
 
@@ -176,6 +194,7 @@ if (cliente == ''){
       this.quoteSvc.generateQuote(bd).subscribe( (response:any)=>{
         this.listar(this.id_quote);
         this.formQuoteDet.reset();
+        Swal.close();
 
       });
 
@@ -188,14 +207,26 @@ if (cliente == ''){
 
 
 updateQuoteDet(){
+  Swal.fire({
+    allowOutsideClick: false,
+    icon: 'info',
+    text:'Espere por favor...'
 
+  });
+  Swal.showLoading()
  this.quoteSvc.cpeso(this.formQuoteDet.value).subscribe( (response:any)=>{
 
 
     if(response.body.code == 201){
-      console.log(response.body.message);
-      return
-     };
+
+      Swal.fire({
+        allowOutsideClick: true,
+        icon: 'error',
+        title: 'Error',
+        text: response.body.message
+         });
+         return
+      };
 
      this.quoteSvc.updateQuoteDet(this.formQuoteDet.value).subscribe( (response:any)=>{
 
@@ -206,6 +237,7 @@ updateQuoteDet(){
           this.quoteSvc.generateQuote(bd).subscribe( (response:any)=>{
             this.listar(this.id_quote);
             this.formQuoteDet.reset();
+            Swal.close();
 
           });
 

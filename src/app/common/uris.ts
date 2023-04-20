@@ -4,7 +4,8 @@ const BASE = {
 
 export const URIS = {
 usuarios:{
-  login: BASE.BACKEND + 'api/usuarios/login'
+  login: BASE.BACKEND + 'api/usuarios/login',
+  updateUser: BASE.BACKEND + 'api/usuarios'
 },
 quotes:{
   createQuote: BASE.BACKEND + 'api/quote',
@@ -25,6 +26,24 @@ peso:{
 
 refs:{
   getRefs: BASE.BACKEND + 'api/refs-get'
+},
+
+tablas:{
+  getTabla: BASE.BACKEND + 'api/tables-get',
+  postTools: BASE.BACKEND + 'api/tables-tools',
+  updateTools: BASE.BACKEND + 'api/tables-uptools',
+  getZonaProveedor: BASE.BACKEND + 'api/list-zp',
+  updateListDetatil: BASE.BACKEND + 'api/tables-uplistdetail',
+  updateCoin: BASE.BACKEND + 'api/tables-upcoin',
+  updateParametro: BASE.BACKEND + 'api/tables-upparams',
+  updateProveedor: BASE.BACKEND + 'api/tables-upbrands',
+  updateRango: BASE.BACKEND + 'api/tables-uprangos',
+  updateTarifa: BASE.BACKEND +'api/tables-uptarifas',
+  updateTrm: BASE.BACKEND + 'api/tables-uptrm',
+  updateVartarifas: BASE.BACKEND + 'api/tables-upvartarifas',
+  updateZonaMoneda : BASE.BACKEND + 'api/tables-upzonamoneda',
+  updateZonaProveedor : BASE.BACKEND + 'api/tables-upzonaproveedor',
+  updateZonas : BASE.BACKEND +'api/tables-upzonas'
 }
 
 }
