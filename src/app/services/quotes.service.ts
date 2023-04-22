@@ -121,6 +121,17 @@ return this.http.post<any>(URIS.quotes.createQuoteDet,bd,{observe:'response',hea
   }
 
 
+  gettotal(idQuote:number):any{
+    return this.http.get<any>(URIS.quotes.getTotalDto +'/'+ idQuote,{observe:'response', headers: this.headers});
+  }
+
+  getQuoteDetail(idQuote:number):any{
+    return this.http.get<any>(URIS.quotes.getQuoteDetail +'/'+ idQuote,{observe:'response', headers: this.headers});
+  }
+
+  getIdQuote():any{
+    return this.http.get<any>(URIS.quotes.getIdQuotes,{observe:'response', headers: this.headers});
+  }
 
 
 

@@ -15,7 +15,10 @@ quotes:{
   getQuotes: BASE.BACKEND + 'api/quote-get',
   closeQuote: BASE.BACKEND + 'api/quote-close',
   closeQuoteRow: BASE.BACKEND + 'api/quote-close-row',
-  deleteQuoteDet: BASE.BACKEND + 'api/quote-delete'
+  deleteQuoteDet: BASE.BACKEND + 'api/quote-delete',
+  getTotalDto: BASE.BACKEND + 'api/quote-totaldto',
+  getQuoteDetail: BASE.BACKEND +  'api/quote-detail',
+  getIdQuotes: BASE.BACKEND + 'api/quotes'
 
 },
 peso:{

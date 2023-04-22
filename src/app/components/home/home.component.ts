@@ -5,6 +5,7 @@ import { IQuote } from 'src/app/common/models/cotizacion';
 import { QuotesService } from '../../services/quotes.service';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class HomeComponent implements OnInit {
   cotizarButton:Boolean = true;
   id_quote: number = 0;
   total: number = 0;
+  idRol:string ='';
 
   public formBrands: any;
   public formQuoteDet: any;
@@ -47,7 +49,7 @@ export class HomeComponent implements OnInit {
     }
 
 
-  constructor(private quoteSvc: QuotesService) {
+  constructor(private quoteSvc: QuotesService, private auth: AuthService) {
   this.formBrands = new FormGroup({
     'searchPart' : new FormControl('',[Validators.required]),
     'cliente' : new FormControl('',[Validators.required]),
@@ -68,8 +70,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.listar(0);
-
-  }
+    this.idRol = this.auth.leerRol();
+    }
 
   listar(idquote: number){
     this.dataSource.data = [];
@@ -273,14 +275,16 @@ updateQuoteDet(){
         this.quoteSvc.closeQuoteRow(Element.id_cotTotales,Element.id_cotizacion ).subscribe( (response:any)=>{
 
           this.quoteTotList = JSON.parse(response.body.rows);
+          this.getTotalDto(this.id_quote);
 
           });
 
 
         });
 
-
       }
+
+
 
     });
 
@@ -358,6 +362,17 @@ updateQuoteDet(){
     this.formQuoteDet.get('altoCM').setValue(altoCM);
     this.formQuoteDet.get('peso_kg').setValue(peso_kg);
     return
+
+  }
+
+
+  getTotalDto(idQuote:number){
+
+    this.quoteSvc.gettotal(idQuote).subscribe( (response:any)=>{
+      console.log(response);
+      this.total = response.body.totalDto
+
+    });
 
   }
 

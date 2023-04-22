@@ -15,6 +15,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UploadFilesComponent } from './components/upload-files/upload-files.component';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
+import { VerQuoteComponent } from './components/ver-quote/ver-quote.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { NgxCsvParserModule } from 'ngx-csv-parser';
     HomeComponent,
     LoginComponent,
     NavbarComponent,
-    UploadFilesComponent
+    UploadFilesComponent,
+    VerQuoteComponent
   ],
   imports: [
     BrowserModule,

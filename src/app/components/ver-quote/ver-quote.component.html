@@ -1,0 +1,131 @@
+<div class="container m-5 p-5">
+    <div class="input-group">
+        <select [(ngModel)]="idSelected" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" (change)="idQuoteSelected()">
+          <option selected value="0">Choose id cotizacion...</option>
+          <option *ngFor="let e of idQuotes" id="floatingSelect" [ngValue]="e.id_cotizacion">{{e.id_cotizacion}} Cliente : {{e.cliente | uppercase}}</option>
+
+>
+        </select>
+    </div>
+
+    <h1>Datos Cotización</h1>
+    <table class="table table-striped">
+
+        <thead>
+
+            <tr>
+                <th scope="col" *ngFor="let e of arrTitlesData">{{e | uppercase}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of quoteDta ;let indice =index;">
+                <th scope="row">{{i.id_cotizacion}}</th>
+                <th>{{i.fecha_init | date:'short'}}</th>
+                <th>{{i.fecha_update | date:'short'}}</th>
+                <th>{{i.cliente | uppercase}}</th>
+                <th>{{i.vendedor | uppercase}}</th>
+                <th>{{i.id_usuario}}</th>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Detalle Cotización</h1>
+    <table class="table table-striped">
+
+        <thead>
+
+            <tr>
+                <th scope="col" *ngFor="let e of arrTitlesDataDetail">{{e | uppercase}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of quoteDetail ;let indice =index;">
+                <th scope="row">{{i.id_cotdetalle}}</th>
+                <th>{{i.fecha_init | date:'short'}}</th>
+                <th>{{i.fecha_update | date:'short'}}</th>
+                <th>{{i.id_cotizacion}}</th>
+                <th>{{i.id_detalle}}</th>
+                <th>{{i.part_number}}</th>
+                <th>{{i.proveedor}}</th>
+                <th>{{i.descripcion}}</th>
+                <th>{{i.cantidad}}</th>
+                <th>{{i.largoCM}}</th>
+                <th>{{i.anchoCM}}</th>
+                <th>{{i.altoCM}}</th>
+                <th>{{i.peso_kg}}</th>
+                <th>{{i.peso_total}}</th>
+                <th>{{i.costo_unitario | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.costo_total | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.zona}}</th>
+                <th>{{i.flete | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.moneda}}</th>
+                <th>{{i.ajuste200USD | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.costoLandedUSD | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.preciolistaCOP | currency:'COP':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.preciototal | currency:'COP':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.id_usuario}}</th>
+                <th>{{i.peso_real}}</th>
+            </tr>
+        </tbody>
+    </table>
+    <h1>Totales Por Zona</h1>
+    <table class="table table-striped">
+
+        <thead>
+
+            <tr>
+                <th scope="col" *ngFor="let e of arrTitlesTotalZona">{{e | uppercase}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of quoteTotalZona ;let indice =index;">
+                <th scope="row">{{i.id_cotTotales}}</th>
+                <th>{{i.id_cotizacion}}</th>
+                <th>{{i.zona}}</th>
+                <th>{{i.cantidad}}</th>
+                <th>{{i.Tpeso_total}}</th>
+                <th>{{i.Tajuste200USD | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.Tpreciototal | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.Cflete | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.CcostoLandedUSD | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.CpreciolistaCOP | currency:'COP':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.Cpreciototal | currency:'COP':'symbol-narrow':'1.0-0'}}</th>
+                <th>{{i.Cdescuento}}</th>
+            </tr>
+
+        </tbody>
+    </table>
+    <h1>Total Sin Descuento</h1>
+    <table class="table table-striped">
+
+        <thead>
+
+            <tr>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of quoteTotal ;let indice =index;">
+                <th scope="row">{{i.TOTAL| currency:'COP':'symbol-narrow':'1.0-0'}}</th>
+
+            </tr>
+
+        </tbody>
+    </table>
+    <h1>Total Con Descuento</h1>
+    <table class="table table-striped">
+
+        <thead>
+
+            <tr>
+                <th scope="col">Total Con Descuento</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of quoteTotalDto ;let indice =index;">
+                <th scope="row">{{i.TOTAL_DTO| currency:'COP':'symbol-narrow':'1.0-0'}}</th>
+
+            </tr>
+
+        </tbody>
+    </table>
+</div>

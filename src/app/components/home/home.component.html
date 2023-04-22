@@ -107,7 +107,7 @@
                     <ng-container matColumnDef="Actions">
                         <th class="header" mat-header-cell *matHeaderCellDef> Actions </th>
                         <td mat-cell *matCellDef="let element">
-                            <a type="button" class="pointer" matTooltip="ver datos" style="color: #2649C3" data-bs-toggle="modal" data-bs-target="#exampleModal-1" data-bs-whatever="@mdo" (click)="viewData(
+                            <a *ngIf="idRol != '3'" type="button" class="pointer" matTooltip="ver datos" style="color: #2649C3" data-bs-toggle="modal" data-bs-target="#exampleModal-1" data-bs-whatever="@mdo" (click)="viewData(
                                   element.peso_real,
                                   element.zona,
                                   element.flete,

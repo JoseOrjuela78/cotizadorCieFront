@@ -64,10 +64,13 @@ export class LoginComponent implements OnInit {
 
      }
 
-     Swal.close();
+     const idrol = JSON.parse(response.body.user).rol;
+
+     this.guardarRol(`${idrol}`);
      this.guardarToken(response.body.token);
      this.auth.leerToken();
      this.router.navigate(['/home']);
+     Swal.close();
 
     })
 
@@ -85,6 +88,11 @@ export class LoginComponent implements OnInit {
     hoy.setSeconds(28800);
     localStorage.setItem('expiraToken', hoy.getTime().toString());
 
+    }
+
+    private guardarRol(idRol:string){
+
+      localStorage.setItem('idrol', idRol);
     }
 
 }

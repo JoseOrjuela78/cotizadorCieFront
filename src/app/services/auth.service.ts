@@ -9,6 +9,7 @@ import { URIS } from '../common/uris';
 export class AuthService {
 
   userToken: string = '';
+  idRol:string = '';
 
   constructor(private http:HttpClient) {
     this.leerToken();
@@ -29,7 +30,6 @@ export class AuthService {
       this.userToken = '';
     }
 
-    console.log(this.userToken);
      return this.userToken;
 
     }
@@ -59,6 +59,18 @@ export class AuthService {
       return false;
 
     }
+
+    leerRol(){
+
+      if(localStorage.getItem('idrol')){
+        this.idRol = String(localStorage.getItem('idrol'));
+      } else {
+        this.idRol = '';
+      }
+
+       return this.idRol;
+
+      }
 
 
 
