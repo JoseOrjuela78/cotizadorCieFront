@@ -46,6 +46,7 @@ export class QuotesService {
       "peso_kg":Number(body.peso_kg)
       };
 
+
 return this.http.post<any>(URIS.quotes.createQuoteDet,bd,{observe:'response',headers:this.headers});
 
   }
@@ -74,7 +75,7 @@ return this.http.post<any>(URIS.quotes.createQuoteDet,bd,{observe:'response',hea
       "id_detalle": Number(body.id_detalle),
       "id_cotdetalle": Number(body.id_cotdetalle),
       };
-
+      console.log({bd});
    return this.http.put<any>(URIS.quotes.generateQuote,bd,{observe:'response',headers:this.headers});
 
   };

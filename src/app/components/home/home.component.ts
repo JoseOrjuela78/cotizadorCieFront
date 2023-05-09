@@ -159,7 +159,7 @@ if (cliente == ''){
 
     this.cotizarButton = true;
     this.formQuoteDet.get('id_cotizacion').setValue(this.id_quote)
-    const idDetalle = this.formBrands.get('part-number').value;
+    const idDetalle:any = this.formBrands.get('part-number').value;
     this.formQuoteDet.get('id_detalle').setValue(idDetalle);
 
   if (this.formQuoteDet.status == 'INVALID'){
