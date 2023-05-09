@@ -23,6 +23,7 @@ export class UploadFilesComponent implements OnInit {
   arridCoins:any[] = [];
   arridZonaCoins:any[] = [];
   arridProveedores:any[] = [];
+  inputFile: boolean = true;
 
   public formHerramientas: any;
   public formListaDetalle: any;
@@ -141,7 +142,6 @@ export class UploadFilesComponent implements OnInit {
   ngOnInit(): void {
 
   this.getZonaProveedor();
-  this.getIdHerramientas();
   this.getIdZonas();
   this.getIdMonedas();
   this.getIdZonaMoneda();
@@ -161,7 +161,6 @@ export class UploadFilesComponent implements OnInit {
           this.csvRecords =  result;
           //this.arrTitles = Object.keys(this.csvRecords[0]);
           this.registros = this.csvRecords.length;
-          console.log(this.csvRecords);
           this.cargarTabla( this.csvRecords);
         },
         error: (error: NgxCSVParserError): void => {
@@ -207,6 +206,44 @@ export class UploadFilesComponent implements OnInit {
   getTable(){
     this.arrTitles= [];
     this.arrRows= [];
+
+    this.inputFile = this.tableSelected == 'Listadetalle'? false : true;
+
+    if (!this.inputFile){
+
+      Swal.fire({
+        allowOutsideClick: false,
+        icon: 'info',
+        text:'Espere por favor...'
+
+      });
+      Swal.showLoading()
+
+       const data = '[]';
+        this.uploadSvc.postTables(data, this.tableSelected).subscribe( (response:any)=>{
+          console.log({response});
+
+        if(response.status == 201){
+          Swal.fire({
+            allowOutsideClick: true,
+            icon: 'error',
+            title: 'Error',
+            text: response.body.msg
+             });
+            return
+        };
+
+
+        Swal.fire({
+          allowOutsideClick: true,
+          icon: 'info',
+          title: 'Info',
+          text: response.body.message
+           });
+        })
+
+      return;
+    }
 
     this.uploadSvc.getTable(this.tableSelected).subscribe( (response:any)=>{
 
@@ -289,11 +326,7 @@ export class UploadFilesComponent implements OnInit {
 
   }
 
-  getIdHerramientas(){
-    this.uploadSvc.getTable("Herramientas").subscribe( (response:any)=>{
-      this.arridTools = JSON.parse(response.body.data);
-    });
-  };
+
 
   updateListDetail(){
     Swal.fire({

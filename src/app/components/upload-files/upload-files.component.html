@@ -3,7 +3,6 @@
         <div class="input-group">
             <select [(ngModel)]="tableSelected" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" (change)="getTable()">
               <option selected>Choose...</option>
-              <option value="Herramientas">Herramientas</option>
               <option value="Listadetalle">Lista Detalle</option>
               <option value="Monedas">Monedas</option>
               <option value="Parametros">Parametros</option>
@@ -20,7 +19,7 @@
             <button class="btn btn-outline-secondary" type="button">Tabla</button>
         </div>
     </div>
-    <div class="row m-1">
+    <div *ngIf="inputFile" class="row m-1">
         <input class="form-control form-control" id="formFile" type="file" #fileImportInput name="File Upload" id="txtFileUpload" (change)="fileChangeListener($event)" accept=".csv">
         <label *ngIf="registros > 0" for="formFileLg" class="form-label mt-1">{{registros}} registros cargados...</label>
     </div>
@@ -261,36 +260,6 @@
                             <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
                         </div>
                     </div>
-                </form>
-                <!--MODAL DATOS LISTA DETALLE-->
-                <form *ngIf="tableSelected == 'Listadetalle'" [formGroup]="formListaDetalle">
-                    <div class="mb-3">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">Zona Moneda Proveedor</label>
-                        <select formControlName="id_zp" class="form-select" aria-label="Default select example">
-                        <option *ngFor="let i of arrzp" [value]="i.id_zp">Zona : {{i.Zona}} {{i.Moneda}} {{i.Proveedor}} ({{i.abv}})</option>
-                       </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">id herramienta</label>
-                        <select formControlName="id_herramienta" class="form-select" aria-label="Default select example">
-                      <option *ngFor="let i of arridTools" [value]="i.id_herramienta">{{i.descripcion}}</option>
-                     </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">part_number:</label>
-                        <input formControlName="part_number" type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">costo:</label>
-                        <input formControlName="costo" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-
                 </form>
                 <!--MODAL DATOS MONEDA-->
                 <form *ngIf="tableSelected == 'Monedas'" [formGroup]="formMonedas">
