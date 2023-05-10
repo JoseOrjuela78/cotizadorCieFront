@@ -1,5 +1,5 @@
 const BASE = {
-  BACKEND : 'http://localhost:8080/'
+  BACKEND : ''//'http://localhost:8080/'
 }
 
 export const URIS = {
