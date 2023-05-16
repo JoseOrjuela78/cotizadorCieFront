@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
   id_quote: number = 0;
   total: number = 0;
   idRol:string ='';
+  brandsList:any[] = [];
 
   public formBrands: any;
   public formQuoteDet: any;
@@ -69,6 +70,7 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.getbrands();
     this.listar(0);
     this.idRol = this.auth.leerRol();
     }
@@ -374,6 +376,16 @@ updateQuoteDet(){
 
     });
 
+  }
+
+  getbrands(){
+    this.quoteSvc.getBrands().subscribe( (response:any)=>{
+
+      this.brandsList = [];
+      this.brandsList = response.body.list;
+
+
+    });
   }
 
 }

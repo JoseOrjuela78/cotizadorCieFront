@@ -53,10 +53,10 @@
                 <th>{{i.altoCM}}</th>
                 <th>{{i.peso_kg}}</th>
                 <th>{{i.peso_total}}</th>
-                <th>{{i.costo_unitario | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
-                <th>{{i.costo_total | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th *ngIf="idRol == '1' || idRol == '2'">{{i.costo_unitario | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th *ngIf="idRol == '1' || idRol == '2'">{{i.costo_total | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
                 <th>{{i.zona}}</th>
-                <th>{{i.flete | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
+                <th *ngIf="idRol == '1' || idRol == '2'">{{i.flete | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
                 <th>{{i.moneda}}</th>
                 <th>{{i.ajuste200USD | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
                 <th>{{i.costoLandedUSD | currency:'USD':'symbol-narrow':'1.0-0'}}</th>
@@ -67,8 +67,8 @@
             </tr>
         </tbody>
     </table>
-    <h1>Totales Por Zona</h1>
-    <table class="table table-striped">
+    <h1 *ngIf="idRol == '1' || idRol == '2'">Totales Por Zona</h1>
+    <table *ngIf="idRol == '1' || idRol == '2'" class="table table-striped">
 
         <thead>
 

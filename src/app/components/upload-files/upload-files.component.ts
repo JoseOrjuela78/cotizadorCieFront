@@ -93,6 +93,7 @@ export class UploadFilesComponent implements OnInit {
       'id_trm' : new FormControl('',[Validators.required]),
       'id_moneda' : new FormControl('',[Validators.required]),
       'valor' : new FormControl('',[Validators.required]),
+      'tasaUsd' : new FormControl('',[Validators.required]),
       'estado': new FormControl('',[Validators.required])
     });
     this.formUsuario = new FormGroup({
@@ -159,6 +160,7 @@ export class UploadFilesComponent implements OnInit {
         next: (result): void => {
 
           this.csvRecords =  result;
+          console.log(this.csvRecords);
           //this.arrTitles = Object.keys(this.csvRecords[0]);
           this.registros = this.csvRecords.length;
           this.cargarTabla( this.csvRecords);
@@ -588,11 +590,12 @@ export class UploadFilesComponent implements OnInit {
 
        };
 
-  getTrm(id_trm:number, id_moneda:string,valor: number, estado:number){
+  getTrm(id_trm:number, id_moneda:string,valor: number, tasaUsd:number, estado:number){
 
     this.formTrm.get('id_trm').setValue(id_trm);
     this.formTrm.get('id_moneda').setValue(id_moneda);
     this.formTrm.get('valor').setValue(valor);
+    this.formTrm.get('tasaUsd').setValue(tasaUsd);
     this.formTrm.get('estado').setValue(estado);
 
     console.log(this.formTrm.value);

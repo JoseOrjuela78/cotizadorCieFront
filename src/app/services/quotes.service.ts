@@ -134,6 +134,10 @@ return this.http.post<any>(URIS.quotes.createQuoteDet,bd,{observe:'response',hea
     return this.http.get<any>(URIS.quotes.getIdQuotes,{observe:'response', headers: this.headers});
   }
 
+  getBrands():any{
+    return this.http.get<any>(URIS.quotes.getBrands,{observe:'response', headers: this.headers});
+  }
+
 
 
 

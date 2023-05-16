@@ -1,5 +1,5 @@
 const BASE = {
-  BACKEND : ''//'http://localhost:8080/'
+  BACKEND : 'http://localhost:8080/'
 }
 
 export const URIS = {
@@ -18,7 +18,8 @@ quotes:{
   deleteQuoteDet: BASE.BACKEND + 'api/quote-delete',
   getTotalDto: BASE.BACKEND + 'api/quote-totaldto',
   getQuoteDetail: BASE.BACKEND +  'api/quote-detail',
-  getIdQuotes: BASE.BACKEND + 'api/quotes'
+  getIdQuotes: BASE.BACKEND + 'api/quotes',
+  getBrands: BASE.BACKEND + 'api/brands'
 
 },
 peso:{

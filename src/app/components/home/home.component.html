@@ -1,5 +1,8 @@
 <div class="container">
     <div class="row m-5">
+        <div class="col-12 mb-0 text-center">
+            <h2>COTIZACION NUMERO: {{id_quote}} </h2>
+        </div>
 
         <form [formGroup]="formBrands">
             <div class="row">
@@ -8,9 +11,13 @@
                         <input (blur)="createQuote()" formControlName="cliente" type="text" class="form-control" placeholder="Cliente" aria-label="Username" aria-describedby="addon-wrapping">
                     </div>
                 </div>
-                <div class="col-6 mb-1 text-center">
-                    <h2>COTIZACION NUMERO: {{id_quote}} </h2>
-                    <h3>Total COP: {{total | currency:'COP':'symbol-narrow':'1.0-0'}}</h3>
+                <div class="col-6 mb-1">
+                    <div *ngIf="statusForms" class="m-1">
+                        <select class="form-select" size="4" aria-label="size 3 select example">
+                      <option *ngFor=" let e of brandsList" value="1">{{e.id_proveedor | uppercase}} <=> {{e.proveedor | uppercase}}</option>
+                    </select>
+                    </div>
+
                 </div>
             </div>
 
@@ -42,9 +49,10 @@
                 </div>
                 <div *ngIf="idRol != '3'" class="col-6 mb-1">
 
-                    <div *ngIf="statusForms" class="m-2">
-                        <select class="form-select" multiple aria-label="multiple select example">
-                      <option *ngFor=" let e of quoteTotList" value="1">Zona : {{e.zona}} Descuento: {{e.Cdescuento}}</option>
+                    <div *ngIf="statusForms" class="m-1">
+                        <select class="form-select" size="4" aria-label="size 3 select example">
+                      <option *ngFor=" let e of quoteTotList" value="1">Marca : {{e.proveedor}} Descuento: {{e.Cdescuento}}</option>
+
                     </select>
 
                     </div>
@@ -145,6 +153,9 @@
                 </mat-paginator>
             </mat-card>
         </div>
+    </div>
+    <div class="col-12 mb-0 text-end">
+        <h3>Total COP: {{total | currency:'COP':'symbol-narrow':'1.0-0'}}</h3>
     </div>
     <div *ngIf="statusForms" class="mt-2">
         <button *ngIf="addButton" type="button" class="btn btn-warning m-1" (click)="closeQuote()">Terminar</button>

@@ -145,10 +145,11 @@
                 <th>{{i.id_moneda}}</th>
                 <th>{{i.fecha_update | date:'short'}}</th>
                 <th>{{i.valor}}</th>
+                <th>{{i.tasaUsd}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
                 <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getTrm(i.id_trm, i.id_moneda,i.valor, i.estado)">Update</button>
+                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getTrm(i.id_trm, i.id_moneda,i.valor,i.tasaUsd,i.estado)">Update</button>
                 </th>
             </tr>
         </tbody>
