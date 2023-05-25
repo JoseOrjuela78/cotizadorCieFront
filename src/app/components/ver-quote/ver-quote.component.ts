@@ -20,12 +20,16 @@ export class VerQuoteComponent implements OnInit {
   idQuotes:any[] = [];
   idSelected:number = 0;
   idRol:string ='';
+  idSeller:number = 0;
+  idSellers:any[] = [];
+  customer:string ='';
+  customers:any[] = [];
 
   constructor(private quoteSvc: QuotesService, private auth: AuthService) { }
 
   ngOnInit(): void {
 this.idRol = this.auth.leerRol();
-this.getIdQuotes();
+this.getSellers();
   }
 
   verQuoteDetail(idQuote:number){
@@ -36,6 +40,7 @@ this.getIdQuotes();
       this.quoteDta = JSON.parse("["+response.body.quoteDta+"]");
       this.quoteDetail = JSON.parse(response.body.quoteDetail);
       this.arrTitlesDataDetail = Object.keys(JSON.parse(response.body.quoteDetail)[0]);
+      //console.log(this.arrTitlesDataDetail);
 
 
       if(this.idRol == '3'){
@@ -45,10 +50,16 @@ this.getIdQuotes();
         this.arrTitlesDataDetail.splice(indice, 1);
         indice = this.arrTitlesDataDetail.indexOf("flete");
         this.arrTitlesDataDetail.splice(indice, 1);
+        indice = this.arrTitlesDataDetail.indexOf("zona");
+        this.arrTitlesDataDetail.splice(indice, 1);
+        indice = this.arrTitlesDataDetail.indexOf("moneda");
+        this.arrTitlesDataDetail.splice(indice, 1);
+        indice = this.arrTitlesDataDetail.indexOf("ajuste200USD");
+        this.arrTitlesDataDetail.splice(indice, 1);
+        indice = this.arrTitlesDataDetail.indexOf("costoLandedUSD");
+        this.arrTitlesDataDetail.splice(indice, 1);
 
       };
-
-
 
       this.quoteTotalZona = JSON.parse(response.body.quoteTotalZona);
       this.arrTitlesTotalZona = Object.keys(JSON.parse(response.body.quoteTotalZona)[0]);
@@ -61,17 +72,44 @@ this.getIdQuotes();
   }
 
   getIdQuotes(){
-    this.quoteSvc.getIdQuote().subscribe( (response:any)=>{
+    this.quoteSvc.getIdQuote(this.customer,this.idSeller).subscribe( (response:any)=>{
+      console.log(response)
       this.idQuotes = JSON.parse(response.body.data);
-
-
     })
   }
 
-
   idQuoteSelected(){
+
       this.verQuoteDetail(this.idSelected);
       return
   }
+
+
+  getSellers(){
+
+   this.quoteSvc.getSellers().subscribe( (response:any)=>{
+    this.idSellers = response.body.list;
+    });
+  };
+
+  getCustomers(idUsuario: number){
+    this.quoteSvc.getCustomers(idUsuario).subscribe( (response:any)=>{
+
+      this.customers = response.body.list;
+
+       });
+  }
+
+
+  idSellerSelected(){
+    this.getCustomers(this.idSeller);
+    return
+}
+
+customerSelected(){
+
+  this.getIdQuotes();
+  return
+}
 
 }

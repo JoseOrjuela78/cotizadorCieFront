@@ -160,7 +160,6 @@ export class UploadFilesComponent implements OnInit {
         next: (result): void => {
 
           this.csvRecords =  result;
-          console.log(this.csvRecords);
           //this.arrTitles = Object.keys(this.csvRecords[0]);
           this.registros = this.csvRecords.length;
           this.cargarTabla( this.csvRecords);
@@ -209,7 +208,7 @@ export class UploadFilesComponent implements OnInit {
     this.arrTitles= [];
     this.arrRows= [];
 
-    this.inputFile = this.tableSelected == 'Listadetalle'? false : true;
+    this.inputFile = this.tableSelected == 'Listadetalle' || this.tableSelected == 'Tarifas'? false : true;
 
     if (!this.inputFile){
 
@@ -223,7 +222,7 @@ export class UploadFilesComponent implements OnInit {
 
        const data = '[]';
         this.uploadSvc.postTables(data, this.tableSelected).subscribe( (response:any)=>{
-          console.log({response});
+          //console.log({response});
 
         if(response.status == 201){
           Swal.fire({

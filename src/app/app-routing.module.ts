@@ -13,12 +13,14 @@ children:[
   {path:'home', component: HomeComponent},
   {path:'upload', component: UploadFilesComponent},
   {path:'verQuote', component: VerQuoteComponent}
-]}
+]},
+{path: '', pathMatch:'full', redirectTo: 'login'},
+{path: '**', pathMatch:'full', redirectTo: 'login'}
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

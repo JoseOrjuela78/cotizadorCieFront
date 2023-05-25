@@ -142,8 +142,12 @@ if (cliente == ''){
       this.id_quote = Number(response.body.id_quote);
       this.statusForms = true;
       return
+    } else {
+      this.statusForms = false;
+      return;
+
     }
-   return
+
   });
 
 }
@@ -305,6 +309,7 @@ updateQuoteDet(){
     this.id_quote = 0;
     this.total = 0;
     this.clearViewData();
+    this.formBrands.get('cliente').setValue('');
     return
   }
 

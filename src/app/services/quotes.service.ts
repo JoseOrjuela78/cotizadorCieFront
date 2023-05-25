@@ -130,12 +130,20 @@ return this.http.post<any>(URIS.quotes.createQuoteDet,bd,{observe:'response',hea
     return this.http.get<any>(URIS.quotes.getQuoteDetail +'/'+ idQuote,{observe:'response', headers: this.headers});
   }
 
-  getIdQuote():any{
-    return this.http.get<any>(URIS.quotes.getIdQuotes,{observe:'response', headers: this.headers});
+  getIdQuote(cliente:string, idUsuario:number):any{
+    return this.http.get<any>(URIS.quotes.getIdQuotes + '/' + cliente + '/' + idUsuario,{observe:'response', headers: this.headers});
   }
 
   getBrands():any{
     return this.http.get<any>(URIS.quotes.getBrands,{observe:'response', headers: this.headers});
+  }
+
+  getSellers():any{
+    return this.http.get<any>(URIS.quotes.getSellers,{observe:'response', headers: this.headers});
+  }
+
+  getCustomers(idUsuario:number):any{
+    return this.http.get<any>(URIS.quotes.getCustomers + '/' + idUsuario,{observe:'response', headers: this.headers});
   }
 
 
