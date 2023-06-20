@@ -75,7 +75,7 @@ return this.http.post<any>(URIS.quotes.createQuoteDet,bd,{observe:'response',hea
       "id_detalle": Number(body.id_detalle),
       "id_cotdetalle": Number(body.id_cotdetalle),
       };
-      console.log({bd});
+
    return this.http.put<any>(URIS.quotes.generateQuote,bd,{observe:'response',headers:this.headers});
 
   };
@@ -105,6 +105,7 @@ return this.http.post<any>(URIS.quotes.createQuoteDet,bd,{observe:'response',hea
   cpeso(bd:any):any{
 
     const body = {
+     id_detalle: bd.id_detalle,
      cantidad: bd.cantidad,
      peso_kg: bd.peso_kg,
      largoCM: bd.largoCM,
