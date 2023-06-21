@@ -3,6 +3,7 @@
         <div class="input-group">
             <select [(ngModel)]="tableSelected" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" (change)="getTable()">
               <option selected>Choose...</option>
+              <option value="DescuentosVolumen">Descuentos Volumen</option>
               <option value="Listadetalle">Lista Detalle</option>
               <option value="Monedas">Monedas</option>
               <option value="Parametros">Parametros</option>
@@ -12,6 +13,7 @@
               <option value="Trm">TRM</option>
               <option value="Usuarios">Usuarios</option>
               <option value="Zonas">Zonas</option>
+
             </select>
             <button class="btn btn-outline-secondary" type="button">Tabla</button>
         </div>

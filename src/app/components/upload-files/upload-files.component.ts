@@ -208,7 +208,7 @@ export class UploadFilesComponent implements OnInit {
     this.arrTitles= [];
     this.arrRows= [];
 
-    this.inputFile = this.tableSelected == 'Listadetalle' || this.tableSelected == 'Tarifas'? false : true;
+    this.inputFile = this.tableSelected == 'Listadetalle' || this.tableSelected == 'Tarifas' || this.tableSelected =='DescuentosVolumen'? false : true;
 
     if (!this.inputFile){
 
@@ -218,6 +218,7 @@ export class UploadFilesComponent implements OnInit {
         text:'Espere por favor...'
 
       });
+
       Swal.showLoading()
 
        const data = '[]';
