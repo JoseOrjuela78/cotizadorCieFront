@@ -142,10 +142,10 @@ export class UploadFilesComponent implements OnInit {
 
   ngOnInit(): void {
 
-  this.getZonaProveedor();
+  //this.getZonaProveedor();
   this.getIdZonas();
   this.getIdMonedas();
-  this.getIdZonaMoneda();
+ // this.getIdZonaMoneda();
   this.getIdProveedores();
 
   }
@@ -192,7 +192,9 @@ export class UploadFilesComponent implements OnInit {
           return
       };
 
-      this.getTable();
+     // this.getTable();
+    this.arrTitles= [];
+    this.arrRows= [];
 
       Swal.fire({
         allowOutsideClick: true,
@@ -208,7 +210,7 @@ export class UploadFilesComponent implements OnInit {
     this.arrTitles= [];
     this.arrRows= [];
 
-    this.inputFile = this.tableSelected == 'Listadetalle' || this.tableSelected == 'Tarifas' || this.tableSelected =='DescuentosVolumen'? false : true;
+    this.inputFile = this.tableSelected == 'Listadetalle' || this.tableSelected == 'Tarifas' || this.tableSelected =='DescuentosVolumen' || this.tableSelected == 'Proveedores' ? false : true;
 
     if (!this.inputFile){
 
@@ -250,7 +252,7 @@ export class UploadFilesComponent implements OnInit {
     this.uploadSvc.getTable(this.tableSelected).subscribe( (response:any)=>{
 
       this.arrTitles = Object.keys(JSON.parse(response.body.data)[0]);
-      this.arrTitles.push('Acciones');
+      //this.arrTitles.push('Acciones');
 
       if(this.tableSelected == "Usuarios"){
         const index = 7;
@@ -292,7 +294,9 @@ export class UploadFilesComponent implements OnInit {
 
        };
 
-       this.getTable();
+      // this.getTable();
+      this.arrTitles= [];
+      this.arrRows= [];
 
        Swal.fire({
         allowOutsideClick: true,
@@ -306,7 +310,7 @@ export class UploadFilesComponent implements OnInit {
 
 
      };
-
+/*
   getZonaProveedor(){
     this.uploadSvc.getZonaProveedor().subscribe( (response:any)=>{
 
@@ -314,7 +318,7 @@ export class UploadFilesComponent implements OnInit {
 
     });
   }
-
+*/
   getListaDetalle(id_detalle:any,idzp:any, id_herramienta:any, part_number:any,costo:any, estado:any){
     this.formListaDetalle.get('id_detalle').setValue(id_detalle);
     this.formListaDetalle.get('id_zp').setValue(idzp);
@@ -351,7 +355,9 @@ export class UploadFilesComponent implements OnInit {
 
        };
 
-       this.getTable();
+      // this.getTable();
+      this.arrTitles= [];
+      this.arrRows= [];
 
        Swal.fire({
         allowOutsideClick: true,
@@ -395,7 +401,9 @@ export class UploadFilesComponent implements OnInit {
 
          };
 
-         this.getTable();
+        // this.getTable();
+        this.arrTitles= [];
+        this.arrRows= [];
 
          Swal.fire({
           allowOutsideClick: true,
@@ -438,7 +446,9 @@ export class UploadFilesComponent implements OnInit {
 
          };
 
-         this.getTable();
+      //   this.getTable();
+      this.arrTitles= [];
+      this.arrRows= [];
 
          Swal.fire({
           allowOutsideClick: true,
@@ -479,7 +489,9 @@ export class UploadFilesComponent implements OnInit {
 
        };
 
-       this.getTable();
+     //  this.getTable();
+     this.arrTitles= [];
+     this.arrRows= [];
 
        Swal.fire({
         allowOutsideClick: true,
@@ -524,7 +536,9 @@ export class UploadFilesComponent implements OnInit {
 
        };
 
-       this.getTable();
+       //this.getTable();
+       this.arrTitles= [];
+       this.arrRows= [];
 
        Swal.fire({
         allowOutsideClick: true,
@@ -576,7 +590,9 @@ export class UploadFilesComponent implements OnInit {
 
          };
 
-         this.getTable();
+       //  this.getTable();
+       this.arrTitles= [];
+       this.arrRows= [];
 
          Swal.fire({
           allowOutsideClick: true,
@@ -628,7 +644,9 @@ export class UploadFilesComponent implements OnInit {
 
        };
 
-       this.getTable();
+      // this.getTable();
+      this.arrTitles= [];
+      this.arrRows= [];
 
        Swal.fire({
         allowOutsideClick: true,
@@ -684,7 +702,9 @@ export class UploadFilesComponent implements OnInit {
 
          };
 
-         this.getTable();
+       //  this.getTable();
+       this.arrTitles= [];
+       this.arrRows= [];
 
          Swal.fire({
           allowOutsideClick: true,
@@ -730,7 +750,9 @@ updateVartarifa(){
 
            };
 
-           this.getTable();
+      //    this.getTable();
+      this.arrTitles= [];
+      this.arrRows= [];
 
            Swal.fire({
             allowOutsideClick: true,
@@ -775,7 +797,9 @@ updateZonaMoneda(){
 
      };
 
-     this.getTable();
+   //  this.getTable();
+   this.arrTitles= [];
+   this.arrRows= [];
 
      Swal.fire({
       allowOutsideClick: true,
@@ -797,11 +821,13 @@ getZonaProv(id_zp:number,id_zm:number,id_proveedor:string, estado:number){
     console.log(this.formZonaProveedor.value);
   }
 
+ /*
   getIdZonaMoneda(){
     this.uploadSvc.getTable("Zona_Moneda").subscribe( (response:any)=>{
       this.arridZonaCoins = JSON.parse(response.body.data);
     });
   };
+  */
 
   getIdProveedores(){
     this.uploadSvc.getTable("Proveedores").subscribe( (response:any)=>{
@@ -830,7 +856,9 @@ getZonaProv(id_zp:number,id_zm:number,id_proveedor:string, estado:number){
 
        };
 
-       this.getTable();
+      // this.getTable();
+      this.arrTitles= [];
+      this.arrRows= [];
 
        Swal.fire({
         allowOutsideClick: true,
@@ -873,7 +901,9 @@ updateZonas(){
 
      };
 
-     this.getTable();
+    // this.getTable();
+    this.arrTitles= [];
+    this.arrRows= [];
 
      Swal.fire({
       allowOutsideClick: true,

@@ -47,9 +47,11 @@
                 <th>{{i.descripcion | uppercase}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getTool(i.id_herramienta,i.descripcion, i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
         <tbody *ngIf="tableSelected == 'Listadetalle' ">
@@ -64,9 +66,11 @@
                 <th>{{i.costo}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getListaDetalle(i.id_detalle,i.id_zp,i.id_herramienta,i.part_number,i.costo,i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
         <tbody *ngIf="tableSelected == 'Monedas' ">
@@ -77,9 +81,11 @@
                 <th>{{i.moneda}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getCoin(i.id_moneda,i.moneda,i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
         <tbody *ngIf="tableSelected == 'Parametros' ">
@@ -91,9 +97,11 @@
                 <th>{{i.valor}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getParametro(i.id_parametro, i.descripcion,i.valor,i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
         <tbody *ngIf="tableSelected == 'Proveedores' ">
@@ -104,9 +112,11 @@
                 <th>{{i.proveedor}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getProveedor(i.id_proveedor,i.proveedor,i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
         <tbody *ngIf="tableSelected == 'RangosUSD' ">
@@ -119,9 +129,11 @@
                 <th>{{i.mark_up}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getRango(i.id_rango,i.rango_min,i.rango_max, i.mark_up, i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
         <tbody *ngIf="tableSelected == 'Tarifas' ">
@@ -135,9 +147,11 @@
                 <th>{{i.tarifa}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getTarifa(i.id_tarifa,i.id_zona,i.peso_min,i.peso_max,i.tarifa,i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
         <tbody *ngIf="tableSelected == 'Trm' ">
@@ -149,9 +163,11 @@
                 <th>{{i.tasaUsd}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getTrm(i.id_trm, i.id_moneda,i.valor,i.tasaUsd,i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
         <tbody *ngIf="tableSelected == 'Usuarios' ">
@@ -189,9 +205,11 @@
                 <th>{{i.tarifa}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getVartarifa(i.id_vartarifa,i.id_zona,i.peso_min,i.peso_max,i.tarifa,i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
         <tbody *ngIf="tableSelected == 'Zona_Moneda' ">
@@ -229,9 +247,11 @@
                 <th>{{i.transportadora}}</th>
                 <th>{{i.id_usuario}}</th>
                 <th>{{i.estado}}</th>
+                <!--
                 <th>
                     <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getZona(i.id_zona,i.zona, i.transportadora,i.estado)">Update</button>
                 </th>
+                -->
             </tr>
         </tbody>
     </table>
