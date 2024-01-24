@@ -32,7 +32,7 @@
                         <div class="col-10">
                             <div class="form-floating">
                                 <select formControlName="part-number" class="form-select" aria-label="Default select example">
-              <option *ngFor="let e of refsList" id="floatingSelect" [ngValue]="e.id_detalle">{{e.part_number}} : {{e.descripcion}} {{e.proveedor | uppercase}}</option>
+              <option *ngFor="let e of refsList" id="floatingSelect" [ngValue]="e.id_detalle">ref: {{e.part_number}} : {{e.herramienta}} marca : {{e.proveedor | uppercase}}</option>
               </select>
                                 <label for="floatingSelect">select menu part_number</label>
                             </div>
