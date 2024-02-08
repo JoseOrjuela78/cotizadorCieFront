@@ -119,7 +119,8 @@ export class HomeComponent implements OnInit {
     this.quoteSvc.getRefs(key).subscribe( (response:any)=>{
 
       if(response.body.list.length > 0){
-      this.refsList = response.body.list;
+        this.refsList = response.body.list;
+        console.log('refsList', this.refsList);
       };
       return
 

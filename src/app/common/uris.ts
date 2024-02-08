@@ -1,6 +1,6 @@
 const BASE = {
-  //BACKEND : 'http://localhost:3005/'
-  BACKEND : '/'
+  BACKEND : 'http://localhost:3005/'
+  //BACKEND : '/'
 
 }
 
@@ -23,7 +23,8 @@ quotes:{
   getIdQuotes: BASE.BACKEND + 'api/quotes',
   getBrands: BASE.BACKEND + 'api/brands',
   getSellers: BASE.BACKEND + 'api/sellers',
-  getCustomers: BASE.BACKEND + 'api/customers'
+  getCustomers: BASE.BACKEND + 'api/customers',
+  putPDFDocument: BASE.BACKEND + 'api/quotes/pdf'
 
 },
 peso:{

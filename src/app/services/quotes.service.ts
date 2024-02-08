@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { URIS } from '../common/uris';
 import { AuthService } from './auth.service';
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class QuotesService {
 
   constructor(private http:HttpClient, private authsvc: AuthService) {
     this.userToken = this.authsvc.leerToken();
-    this.headers = new HttpHeaders({'token':`${this.userToken}`});
+    this.headers = new HttpHeaders({ 'token': `${this.userToken}`, 'Content-Type': 'application/json' });
+    this.headersN = new HttpHeaders({ responseType: 'blob' });
     }
 
   getQuotes(idquote: number):any{
@@ -147,7 +149,22 @@ return this.http.post<any>(URIS.quotes.createQuoteDet,bd,{observe:'response',hea
     return this.http.get<any>(URIS.quotes.getCustomers + '/' + idUsuario,{observe:'response', headers: this.headers});
   }
 
+  squareAsync(num: number): Observable<number> {
+    return new Observable<number>((observer) => {
+        setTimeout(() => {
+            observer.next(num * num);
+            observer.complete();
+        }, 1000);
+    });
+}
 
+asyncSum(a: number, b: number): Promise<number> {
+  return new Promise((resolve) => {
+      setTimeout(() => {
+          resolve(a + b);
+      }, 1000);
+  });
+}
 
 
 }

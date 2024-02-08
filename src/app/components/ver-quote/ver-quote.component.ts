@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { QuotesService } from 'src/app/services/quotes.service';
 
+
 @Component({
   selector: 'app-ver-quote',
   templateUrl: './ver-quote.component.html',
@@ -9,41 +10,45 @@ import { QuotesService } from 'src/app/services/quotes.service';
 })
 export class VerQuoteComponent implements OnInit {
 
-  quoteDetail:any[] = [];
-  quoteDta:any[] = [];
-  quoteTotal:any[] = [];
-  quoteTotalDto:any[] = [];
-  quoteTotalZona:any[] = [];
-  arrTitlesData:any = {};
-  arrTitlesDataDetail:any= {};
-  arrTitlesTotalZona:any= {};
-  idQuotes:any[] = [];
-  idSelected:number = 0;
-  idRol:string ='';
-  idSeller:number = 0;
-  idSellers:any[] = [];
-  customer:string ='';
-  customers:any[] = [];
+  quoteDetail: any[] = [];
+  quoteDta: any[] = [];
+  quoteTotal: any[] = [];
+  quoteTotalDto: any[] = [];
+  quoteTotalZona: any[] = [];
+  arrTitlesData: any = {};
+  arrTitlesDataDetail: any = {};
+  arrTitlesTotalZona: any = {};
+  idQuotes: any[] = [];
+  idSelected: number = 0;
+  idRol: string = '';
+  idSeller: number = 0;
+  idSellers: any[] = [];
+  customer: string = '';
+  customers: any[] = [];
+  botonPdf: boolean = false;
 
   constructor(private quoteSvc: QuotesService, private auth: AuthService) { }
 
   ngOnInit(): void {
-this.idRol = this.auth.leerRol();
-this.getSellers();
+    this.idRol = this.auth.leerRol();
+    this.getSellers();
   }
 
-  verQuoteDetail(idQuote:number){
-    this.quoteSvc.getQuoteDetail(idQuote).subscribe( (response:any)=>{
+  verQuoteDetail(idQuote: number) {
+    this.quoteSvc.getQuoteDetail(idQuote).subscribe((response: any) => {
 
-      console.log(response.body.message);
+      this.botonPdf = false;
+      if (!(response.body.quoteDetail == null)) {
+        this.botonPdf = true;
+      };
       this.arrTitlesData = Object.keys(JSON.parse(response.body.quoteDta));
-      this.quoteDta = JSON.parse("["+response.body.quoteDta+"]");
+      this.quoteDta = JSON.parse("[" + response.body.quoteDta + "]");
       this.quoteDetail = JSON.parse(response.body.quoteDetail);
       this.arrTitlesDataDetail = Object.keys(JSON.parse(response.body.quoteDetail)[0]);
       //console.log(this.arrTitlesDataDetail);
 
 
-      if(this.idRol == '3'){
+      if (this.idRol == '3') {
         var indice = this.arrTitlesDataDetail.indexOf("costo_unitario"); // obtenemos el indice
         this.arrTitlesDataDetail.splice(indice, 1);
         indice = this.arrTitlesDataDetail.indexOf("costo_total");
@@ -64,52 +69,57 @@ this.getSellers();
       this.quoteTotalZona = JSON.parse(response.body.quoteTotalZona);
       this.arrTitlesTotalZona = Object.keys(JSON.parse(response.body.quoteTotalZona)[0]);
       this.quoteTotal = JSON.parse(response.body.quoteTotal);
-      this.quoteTotalDto =JSON.parse(response.body.quoteTotalDto);
+      this.quoteTotalDto = JSON.parse(response.body.quoteTotalDto);
 
       return
 
     });
   }
 
-  getIdQuotes(){
-    this.quoteSvc.getIdQuote(this.customer,this.idSeller).subscribe( (response:any)=>{
+  getIdQuotes() {
+    this.quoteSvc.getIdQuote(this.customer, this.idSeller).subscribe((response: any) => {
       console.log(response)
       this.idQuotes = JSON.parse(response.body.data);
     })
   }
 
-  idQuoteSelected(){
+  idQuoteSelected() {
 
-      this.verQuoteDetail(this.idSelected);
-      return
+    this.verQuoteDetail(this.idSelected);
+    return
   }
 
 
-  getSellers(){
+  getSellers() {
 
-   this.quoteSvc.getSellers().subscribe( (response:any)=>{
-    this.idSellers = response.body.list;
+    this.quoteSvc.getSellers().subscribe((response: any) => {
+      this.idSellers = response.body.list;
     });
   };
 
-  getCustomers(idUsuario: number){
-    this.quoteSvc.getCustomers(idUsuario).subscribe( (response:any)=>{
+  getCustomers(idUsuario: number) {
+    this.quoteSvc.getCustomers(idUsuario).subscribe((response: any) => {
 
       this.customers = response.body.list;
 
-       });
+    });
   }
 
 
-  idSellerSelected(){
+  idSellerSelected() {
     this.getCustomers(this.idSeller);
     return
-}
+  }
 
-customerSelected(){
+  customerSelected() {
 
-  this.getIdQuotes();
-  return
-}
+    this.getIdQuotes();
+    return
+  }
+
+  redirectToExternalUrl(): void {
+    const externalUrl: string = 'http://localhost:3005/api/quotes/pdf';
+    window.open(externalUrl, '_blank');
+  }
 
 }
