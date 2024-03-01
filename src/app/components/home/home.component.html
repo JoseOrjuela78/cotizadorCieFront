@@ -51,7 +51,7 @@
 
                     <div *ngIf="statusForms" class="m-1">
                         <select class="form-select" size="4" aria-label="size 3 select example">
-                      <option *ngFor=" let e of quoteTotList" value="1">Marca : {{e.proveedor}} Descuento: {{e.Cdescuento | percent}}</option>
+                      <option *ngFor=" let e of quoteTotList" value="1">Marca : {{e.proveedor}} Descuento: {{e.Total_Descuento | currency:'COP':'symbol-narrow':'1.0-0'}}</option>
 
                     </select>
 
@@ -103,14 +103,35 @@
                         <td mat-cell *matCellDef="let element"> {{element.peso_total}} </td>
                     </ng-container>
 
-                    <ng-container matColumnDef="Preciolistacop">
-                        <th class="header" mat-header-cell *matHeaderCellDef> Preciolistacop </th>
+                    <ng-container matColumnDef="PrecioCop">
+                        <th class="header" mat-header-cell *matHeaderCellDef> PrecioCop </th>
                         <td mat-cell *matCellDef="let element"> {{element.preciolistaCOP | currency:'COP':'symbol-narrow':'1.0-0'}} </td>
+                    </ng-container>
+                    PrecioRes
+                    <ng-container matColumnDef="PrecioRes">
+                        <th class="header" mat-header-cell *matHeaderCellDef> PrecioRes </th>
+                        <td mat-cell *matCellDef="let element"> {{element.precioRescateCOP | currency:'COP':'symbol-narrow':'1.0-0'}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="Preciototal">
                         <th class="header" mat-header-cell *matHeaderCellDef> Preciototal </th>
                         <td mat-cell *matCellDef="let element"> {{element.preciototal | currency:'COP':'symbol-narrow':'1.0-0'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="PrecioTotalRes">
+                        <th class="header" mat-header-cell *matHeaderCellDef> PrecioTotalRes </th>
+                        <td mat-cell *matCellDef="let element"> {{element.preciototalRescate | currency:'COP':'symbol-narrow':'1.0-0'}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="DtoCop">
+                        <th class="header" mat-header-cell *matHeaderCellDef> DtoCop </th>
+                        <td mat-cell *matCellDef="let element"> {{element.descuentoCOP | currency:'COP':'symbol-narrow':'1.0-0'}} </td>
+                    </ng-container>
+
+                    Dto%
+                    <ng-container matColumnDef="Dto%">
+                        <th class="header" mat-header-cell *matHeaderCellDef>Dto%</th>
+                        <td mat-cell *matCellDef="let element"> {{element.descuentoPER | percent}} </td>
                     </ng-container>
                     <ng-container matColumnDef="Actions">
                         <th class="header" mat-header-cell *matHeaderCellDef> Actions </th>

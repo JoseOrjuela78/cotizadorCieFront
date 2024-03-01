@@ -48,7 +48,6 @@ export class QuotesService {
       "peso_kg":Number(body.peso_kg)
       };
 
-
 return this.http.post<any>(URIS.quotes.createQuoteDet,bd,{observe:'response',headers:this.headers});
 
   }
@@ -166,5 +165,8 @@ asyncSum(a: number, b: number): Promise<number> {
   });
 }
 
+  getRescue(status:number):any{
+    return this.http.get<any>(URIS.quotes.rescue +'/'+ status,{observe:'response', headers: this.headers});
+  }
 
 }

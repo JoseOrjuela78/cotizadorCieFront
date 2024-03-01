@@ -117,9 +117,14 @@ export class VerQuoteComponent implements OnInit {
     return
   }
 
-  redirectToExternalUrl(): void {
-    const externalUrl: string = 'http://localhost:3005/api/quotes/pdf';
+  redirectToExternalUrl(status: number): void {
+
+    this.quoteSvc.getRescue(status).subscribe((response: any) => {
+
+    const externalUrl: string = 'http://192.168.100.100:3005/api/quotes/pdf';//'http://localhost:3005/api/quotes/pdf';
     window.open(externalUrl, '_blank');
+
+    });
   }
 
 }

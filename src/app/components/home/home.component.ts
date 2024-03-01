@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  displayedColumns: string[] = ['Index','Part_number','Brand','Description','Cantidad','Peso_total','Preciolistacop','Preciototal','Actions'];
+  displayedColumns: string[] = ['Index','Part_number','Brand','Description','Cantidad','Peso_total','PrecioCop','PrecioRes','Preciototal','PrecioTotalRes','DtoCop','Dto%','Actions'];
   dataSource = new MatTableDataSource<IQuote>([]);
   clickedRows = new Set<IQuote>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -95,11 +95,15 @@ export class HomeComponent implements OnInit {
         element.costo_total = this.decimales(element.costo_total,2);
         element.ajuste200USD = this.decimales(element.ajuste200USD,2);
         element.costoLandedUSD = this.decimales(element.costoLandedUSD,2);
-        element.preciolistaCOP = this.decimales(element.preciolistaCOP,2);
-        element.preciototal = this.decimales(element.preciototal,2);
+        element.preciolistaCOP = this.decimales(element.preciolistaCOP, 2);
+        element.precioRescateCOP = this.decimales(element.precioRescateCOP, 2);
+        element.preciototal = this.decimales(element.preciototal, 2);
+        element.preciototalRescate = this.decimales(element.preciototalRescate, 2);
+        element.descuentoCOP = this.decimales(element.descuentoCOP, 2);
         ELEMENTDATA.push(element);
       });
 
+      console.log(ELEMENTDATA);
       this.dataSource.data = ELEMENTDATA;
     });
 
@@ -264,14 +268,15 @@ updateQuoteDet(){
 
     this.quoteDetList = [];
 
-    this.quoteSvc.closeQuote(this.id_quote).subscribe( (response:any)=>{
+    this.quoteSvc.closeQuote(this.id_quote).subscribe((response: any) => {
 
       this.total = response.body.total;
       this.addButton = false;
 
       const arr = JSON.parse(response.body.rows);
+      this.getTotalDto(this.id_quote);
 
-
+/*
       if(arr.length){
         this.quoteDetList = arr;
 
@@ -282,7 +287,7 @@ updateQuoteDet(){
         this.quoteSvc.closeQuoteRow(Element.id_cotTotales,Element.id_cotizacion ).subscribe( (response:any)=>{
 
           this.quoteTotList = JSON.parse(response.body.rows);
-          this.getTotalDto(this.id_quote);
+
 
           });
 
@@ -291,7 +296,7 @@ updateQuoteDet(){
 
       }
 
-
+*/
 
     });
 
@@ -375,10 +380,10 @@ updateQuoteDet(){
 
 
   getTotalDto(idQuote:number){
-
+    this.quoteTotList = [];
     this.quoteSvc.gettotal(idQuote).subscribe( (response:any)=>{
-      console.log(response);
-      this.total = response.body.totalDto
+      console.log({ "gettotal": response });
+      this.quoteTotList = response.body.totalDto
 
     });
 

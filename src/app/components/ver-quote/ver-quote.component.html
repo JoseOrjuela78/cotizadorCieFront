@@ -127,13 +127,13 @@
 
         </tbody>
     </table>
-    <h1>Total Con Descuento</h1>
+    <h1>Descuento</h1>
     <table class="table table-striped">
 
         <thead>
 
             <tr>
-                <th scope="col">Total Con Descuento</th>
+                <th scope="col">Total Descuento</th>
             </tr>
         </thead>
         <tbody>
@@ -144,5 +144,12 @@
 
         </tbody>
     </table>
-    <button *ngIf="botonPdf" type="button" class="btn btn-danger" (click)="redirectToExternalUrl()">Generate PDF</button>
+    <div class="row col-3 m-2">
+        <button *ngIf="botonPdf" type="button" class="btn btn-danger" (click)="redirectToExternalUrl(0)">Generate PDF standar</button>
+    </div>
+    <div class="row col-3 m-2">
+        <button *ngIf="botonPdf" type="button" class="btn btn-danger" (click)="redirectToExternalUrl(1)">Generate PDF rescue</button>
+    </div>
+
+
 </div>

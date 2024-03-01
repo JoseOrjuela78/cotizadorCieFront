@@ -1,13 +1,15 @@
 const BASE = {
-  BACKEND : 'http://localhost:3005/'
-  //BACKEND : '/'
+  //BACKEND : 'http://localhost:3005/'
+  BACKEND : '/'
 
 }
 
 export const URIS = {
-usuarios:{
+usuarios: {
+  createUser: BASE.BACKEND + 'api/usuarios',
   login: BASE.BACKEND + 'api/usuarios/login',
   updateUser: BASE.BACKEND + 'api/usuarios'
+
 },
 quotes:{
   createQuote: BASE.BACKEND + 'api/quote',
@@ -24,7 +26,8 @@ quotes:{
   getBrands: BASE.BACKEND + 'api/brands',
   getSellers: BASE.BACKEND + 'api/sellers',
   getCustomers: BASE.BACKEND + 'api/customers',
-  putPDFDocument: BASE.BACKEND + 'api/quotes/pdf'
+  putPDFDocument: BASE.BACKEND + 'api/quotes/pdf',
+  rescue: BASE.BACKEND + 'api/rescue'
 
 },
 peso:{
@@ -39,20 +42,7 @@ refs:{
 
 tablas:{
   getTabla: BASE.BACKEND + 'api/tables-get',
-  postTools: BASE.BACKEND + 'api/tables-tools',
-  updateTools: BASE.BACKEND + 'api/tables-uptools',
-  getZonaProveedor: BASE.BACKEND + 'api/list-zp',
-  updateListDetatil: BASE.BACKEND + 'api/tables-uplistdetail',
-  updateCoin: BASE.BACKEND + 'api/tables-upcoin',
-  updateParametro: BASE.BACKEND + 'api/tables-upparams',
-  updateProveedor: BASE.BACKEND + 'api/tables-upbrands',
-  updateRango: BASE.BACKEND + 'api/tables-uprangos',
-  updateTarifa: BASE.BACKEND +'api/tables-uptarifas',
-  updateTrm: BASE.BACKEND + 'api/tables-uptrm',
-  updateVartarifas: BASE.BACKEND + 'api/tables-upvartarifas',
-  updateZonaMoneda : BASE.BACKEND + 'api/tables-upzonamoneda',
-  updateZonaProveedor : BASE.BACKEND + 'api/tables-upzonaproveedor',
-  updateZonas : BASE.BACKEND +'api/tables-upzonas'
-}
+  putTables: BASE.BACKEND + 'api/tables-upload'
+  }
 
 }
