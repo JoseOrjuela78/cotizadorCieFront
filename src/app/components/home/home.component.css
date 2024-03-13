@@ -7,3 +7,13 @@ table {
     text-align: center;
     font-weight: bold;
 }
+
+.container {
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid #000;
+}

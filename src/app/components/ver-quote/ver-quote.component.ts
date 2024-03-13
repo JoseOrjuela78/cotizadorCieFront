@@ -121,7 +121,7 @@ export class VerQuoteComponent implements OnInit {
 
     this.quoteSvc.getRescue(status).subscribe((response: any) => {
 
-    const externalUrl: string = 'http://192.168.100.100:3005/api/quotes/pdf';//'http://localhost:3005/api/quotes/pdf';
+    const externalUrl: string = 'http://192.168.100.100:3006/api/quotes/pdf'; //'http://localhost:3005/api/quotes/pdf';
     window.open(externalUrl, '_blank');
 
     });
