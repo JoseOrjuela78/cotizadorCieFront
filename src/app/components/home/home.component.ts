@@ -15,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  displayedColumns: string[] = ['Index','Part_number','Brand','Description','Cantidad','Peso_total','PrecioCop','PrecioRes','Preciototal','PrecioTotalRes','DtoCop','Dto%','Actions'];
+  displayedColumns: string[] = ['Index','Part_number','Brand','Description','Cantidad','Peso_total','PrecioCop','PrecioRes','Preciototal','PrecioTotalRes','Dto%','Actions'];
   dataSource = new MatTableDataSource<IQuote>([]);
   clickedRows = new Set<IQuote>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
