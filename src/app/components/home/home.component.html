@@ -49,10 +49,23 @@
             <div class="col-6 mb-1">
 
                 <div *ngIf="statusForms" class="m-1">
-                    <select class="form-select" size="4" aria-label="size 3 select example">
-                      <option *ngFor=" let e of quoteTotList" value="1">Marca : {{e.proveedor}} Descuento: {{e.Total_Descuento | currency:'COP':'symbol-narrow':'1.0-0'}}</option>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Dto Consolidado</th>
+                                <th scope="col">Dto Rescate</th>
 
-                    </select>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let e of quoteTotList">
+                                <th scope="row">{{e.proveedor}}</th>
+                                <td>{{e.Cdescuento | percent : '2.1-2'}}</td>
+                                <td>{{e.CdescuentoPER | percent : '2.1-2'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                 </div>
             </div>
