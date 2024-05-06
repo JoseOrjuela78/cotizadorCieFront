@@ -1,4 +1,4 @@
-<div class="container m-5">
+<div class="container ms-5">
     <div class="row m1 container">
         <div class="input-group">
             <select [(ngModel)]="tableSelected" class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon" (change)="getTable()">
@@ -18,20 +18,15 @@
             <button class="btn btn-outline-secondary" type="button">Tabla</button>
         </div>
     </div>
-    <div *ngIf="inputFile" class="row m-1">
-        <input class="form-control form-control" id="formFile" type="file" #fileImportInput name="File Upload" id="txtFileUpload" (change)="fileChangeListener($event)" accept=".csv">
-        <label *ngIf="registros > 0" for="formFileLg" class="form-label mt-1">{{registros}} registros cargados...</label>
+    <div class="row ms-0 mt-3" *ngIf="tableSelected == 'Usuarios' ">
+        <div class="col-3">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="buttonStatus(true)">+ New user</button>
+        </div>
     </div>
-</div>
-
-<!--
-<div class="csv-file-chooser-section">
-
-    <input type="file" #fileImportInput name="File Upload" id="txtFileUpload" (change)="fileChangeListener($event)" accept=".csv" />
 
 </div>
--->
-<div class="csv-result-table">
+
+<div class="csv-result-table mt-3">
 
     <table class="table table-striped">
         <thead>
@@ -39,146 +34,17 @@
                 <th scope="col" *ngFor="let e of arrTitles">{{e | uppercase}}</th>
             </tr>
         </thead>
-        <tbody *ngIf="tableSelected == 'Herramientas' ">
-            <tr *ngFor="let i of arrRows ;let indice =index;">
-                <th scope="row">{{i.id_herramienta}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.descripcion | uppercase}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getTool(i.id_herramienta,i.descripcion, i.estado)">Update</button>
-                </th>
-                -->
-            </tr>
-        </tbody>
-        <tbody *ngIf="tableSelected == 'Listadetalle' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_detalle}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.id_lista}}</th>
-                <th>{{i.id_zp}}</th>
-                <th>{{i.id_herramienta}}</th>
-                <th>{{i.part_number}}</th>
-                <th>{{i.costo}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getListaDetalle(i.id_detalle,i.id_zp,i.id_herramienta,i.part_number,i.costo,i.estado)">Update</button>
-                </th>
-                -->
-            </tr>
-        </tbody>
-        <tbody *ngIf="tableSelected == 'Monedas' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_moneda}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.moneda}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getCoin(i.id_moneda,i.moneda,i.estado)">Update</button>
-                </th>
-                -->
-            </tr>
-        </tbody>
-        <tbody *ngIf="tableSelected == 'Parametros' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_parametro}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.descripcion}}</th>
-                <th>{{i.valor}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getParametro(i.id_parametro, i.descripcion,i.valor,i.estado)">Update</button>
-                </th>
-                -->
-            </tr>
-        </tbody>
-        <tbody *ngIf="tableSelected == 'Proveedores' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_proveedor}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.proveedor}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getProveedor(i.id_proveedor,i.proveedor,i.estado)">Update</button>
-                </th>
-                -->
-            </tr>
-        </tbody>
-        <tbody *ngIf="tableSelected == 'RangosUSD' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_rango}}</th>
-                <th>{{i.rango_min}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.rango_max}}</th>
-                <th>{{i.mark_up}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getRango(i.id_rango,i.rango_min,i.rango_max, i.mark_up, i.estado)">Update</button>
-                </th>
-                -->
-            </tr>
-        </tbody>
-        <tbody *ngIf="tableSelected == 'Tarifas' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_tarifa}}</th>
-                <th>{{i.id_zona}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.peso_min}}</th>
-                <th>{{i.peso_max}}</th>
-                <th>{{i.tarifa}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getTarifa(i.id_tarifa,i.id_zona,i.peso_min,i.peso_max,i.tarifa,i.estado)">Update</button>
-                </th>
-                -->
-            </tr>
-        </tbody>
-        <tbody *ngIf="tableSelected == 'Trm' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_trm}}</th>
-                <th>{{i.id_moneda}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.valor}}</th>
-                <th>{{i.tasaUsd}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getTrm(i.id_trm, i.id_moneda,i.valor,i.tasaUsd,i.estado)">Update</button>
-                </th>
-                -->
-            </tr>
-        </tbody>
+
         <tbody *ngIf="tableSelected == 'Usuarios' ">
             <tr *ngFor="let i of arrRows">
                 <th scope="row">{{i.id_usuario}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
                 <th>{{i.identificacion}}</th>
                 <th>{{i.username}}</th>
                 <th>{{i.nombre}}</th>
                 <th>{{i.apellido}}</th>
+                <th>{{i.telefono}}</th>
+                <th>{{i.celular}}</th>
+                <th>{{i.email}}</th>
                 <th>{{i.rol}}</th>
                 <th>{{i.estado}}</th>
                 <th>
@@ -188,72 +54,25 @@
                       i.username,
                       i.nombre,
                       i.apellido,
+                      i.telefono,
+                      i.celular,
+                      i.email,
                       i.rol,
                       i.estado
                       )">Update</button>
                 </th>
             </tr>
         </tbody>
-        <tbody *ngIf="tableSelected == 'Vartarifas' ">
+        <tbody *ngIf="tableSelected != 'Usuarios' ">
             <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_vartarifa}}</th>
-                <th>{{i.id_zona}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.peso_min}}</th>
-                <th>{{i.peso_max}}</th>
-                <th>{{i.tarifa}}</th>
-                <th>{{i.id_usuario}}</th>
+                <th scope="row">{{i.Nombre_tabla}}</th>
+                <th>{{i.Total_rows}}</th>
+                <th>{{i.Usuario}}</th>
+                <th>{{i.Fecha_update}}</th>
                 <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getVartarifa(i.id_vartarifa,i.id_zona,i.peso_min,i.peso_max,i.tarifa,i.estado)">Update</button>
-                </th>
-                -->
             </tr>
         </tbody>
-        <tbody *ngIf="tableSelected == 'Zona_Moneda' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_zm}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.id_moneda}}</th>
-                <th>{{i.id_zona}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getZonaMoneda(i.id_zm,i.id_moneda,i.id_zona,i.estado)">Update</button>
-                </th>
-            </tr>
-        </tbody>
-        <tbody *ngIf="tableSelected == 'Zona_Proveedor' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_zp}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.id_zm}}</th>
-                <th>{{i.id_proveedor}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getZonaProv(i.id_zp,i.id_zm,i.id_proveedor,i.estado)">Update</button>
-                </th>
-            </tr>
-        </tbody>
-        <tbody *ngIf="tableSelected == 'Zonas' ">
-            <tr *ngFor="let i of arrRows">
-                <th scope="row">{{i.id_zona}}</th>
-                <th>{{i.fecha_init | date:'short'}}</th>
-                <th>{{i.fecha_update | date:'short'}}</th>
-                <th>{{i.zona}}</th>
-                <th>{{i.transportadora}}</th>
-                <th>{{i.id_usuario}}</th>
-                <th>{{i.estado}}</th>
-                <!--
-                <th>
-                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" (click)="getZona(i.id_zona,i.zona, i.transportadora,i.estado)">Update</button>
-                </th>
-                -->
-            </tr>
-        </tbody>
+
     </table>
 
 
@@ -267,129 +86,20 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Datos Requeridos</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
-                <!--MODAL DATOS HERRAMIENTAS-->
-                <form *ngIf="tableSelected == 'Herramientas'" [formGroup]="formHerramientas">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Descripción:</label>
-                        <input formControlName="descripcion" type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
-                <!--MODAL DATOS MONEDA-->
-                <form *ngIf="tableSelected == 'Monedas'" [formGroup]="formMonedas">
 
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">moneda:</label>
-                        <input formControlName="moneda" type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
-                <!--MODAL PARAMETROS-->
-                <form *ngIf="tableSelected == 'Parametros'" [formGroup]="formParametros">
 
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Descripcion:</label>
-                        <input formControlName="descripcion" type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Valor:</label>
-                        <input formControlName="valor" type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
-                <form *ngIf="tableSelected == 'Proveedores'" [formGroup]="formProveedores">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">proveedor:</label>
-                        <input formControlName="proveedor" type="text" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
-                <form *ngIf="tableSelected == 'RangosUSD'" [formGroup]="formRangos">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">rango_min:</label>
-                        <input formControlName="rango_min" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">rango_max:</label>
-                        <input formControlName="rango_max" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">mark_up:</label>
-                        <input formControlName="mark_up" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
-                <form *ngIf="tableSelected == 'Tarifas'" [formGroup]="formTarifas">
-                    <div class="mb-3">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">id_zona</label>
-                        <select formControlName="id_zona" class="form-select" aria-label="Default select example">
-                      <option *ngFor="let i of arridZonas" [value]="i.id_zona">{{i.zona}}</option>
-                     </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">peso_min:</label>
-                        <input formControlName="peso_min" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">peso_max:</label>
-                        <input formControlName="peso_max" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">tarifa:</label>
-                        <input formControlName="tarifa" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
-                <form *ngIf="tableSelected == 'Trm'" [formGroup]="formTrm">
-                    <div class="mb-3">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">id_moneda</label>
-                        <select formControlName="id_moneda" class="form-select" aria-label="Default select example">
-                  <option *ngFor="let i of arridCoins" [value]="i.id_moneda">{{i.moneda}}</option>
-                 </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">valor:</label>
-                        <input formControlName="valor" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
                 <form *ngIf="tableSelected == 'Usuarios'" [formGroup]="formUsuario">
+
+                    <div class="mb-3" *ngIf="buttonUser">
+                        <label for="recipient-name" class="col-form-label">identificacion:</label>
+                        <input formControlName="identificacion" type="text" class="form-control" id="recipient-name">
+                    </div>
+                    <div class="mb-3" *ngIf="buttonUser">
+                        <label for="recipient-name" class="col-form-label">username:</label>
+                        <input formControlName="username" type="text" class="form-control" id="recipient-name">
+                    </div>
 
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">nombre:</label>
@@ -399,6 +109,22 @@
                         <label for="recipient-name" class="col-form-label">apellido:</label>
                         <input formControlName="apellido" type="text" class="form-control" id="recipient-name">
                     </div>
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">telefono:</label>
+                        <input formControlName="telefono" type="text" class="form-control" id="recipient-name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">celular:</label>
+                        <input formControlName="celular" type="text" class="form-control" id="recipient-name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">email:</label>
+                        <input formControlName="email" type="text" class="form-control" id="recipient-name">
+                    </div>
+
                     <div class="mb-3">
                         <label for="recipient-name" class="col-form-label">password:</label>
                         <input formControlName="pass" type="text" class="form-control" id="recipient-name">
@@ -413,125 +139,22 @@
                   </select>
                     </div>
                     <div class="mb-3">
-                        <div class="form-check form-switch">
+                        <div class="form-check form-switch" *ngIf="!buttonUser">
                             <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                             <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
                         </div>
                     </div>
                 </form>
-                <form *ngIf="tableSelected == 'Vartarifas'" [formGroup]="formVartarifas">
-                    <div class="mb-3">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">id_zona</label>
-                        <select formControlName="id_zona" class="form-select" aria-label="Default select example">
-                    <option *ngFor="let i of arridZonas" [value]="i.id_zona">{{i.zona}}</option>
-                   </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">peso_min:</label>
-                        <input formControlName="peso_min" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">peso_max:</label>
-                        <input formControlName="peso_max" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">tarifa:</label>
-                        <input formControlName="tarifa" type="number" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
-                <form *ngIf="tableSelected == 'Zona_Moneda'" [formGroup]="formZonaMoneda">
-                    <div class="mb-3">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">id_moneda</label>
-                        <select formControlName="id_moneda" class="form-select" aria-label="Default select example">
-                    <option *ngFor="let i of arridCoins" [value]="i.id_moneda">{{i.moneda}}</option>
-                    </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">id_zona</label>
-                        <select formControlName="id_zona" class="form-select" aria-label="Default select example">
-                    <option *ngFor="let i of arridZonas" [value]="i.id_zona">{{i.zona}}</option>
-                    </select>
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
-                <form *ngIf="tableSelected == 'Zona_Proveedor'" [formGroup]="formZonaProveedor">
-                    <div class="mb-3">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">id_zm</label>
-                        <select formControlName="id_zm" class="form-select" aria-label="Default select example">
-                  <option *ngFor="let i of arridZonaCoins" [value]="i.id_zm">Zona : {{i.id_zona}} moneda: {{i.id_moneda}}</option>
-                  </select>
-                    </div>
 
-                    <div class="mb-3">
-                        <label class="form-check-label" for="flexSwitchCheckChecked">id_proveedor</label>
-                        <select formControlName="id_proveedor" class="form-select" aria-label="Default select example">
-                <option *ngFor="let i of arridProveedores" [value]="i.id_proveedor">{{i.proveedor}}</option>
-                </select>
-                    </div>
 
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
-                <form *ngIf="tableSelected == 'Zonas'" [formGroup]="formZonas">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">zona:</label>
-                        <input formControlName="zona" type="zona" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">transportadora:</label>
-                        <input formControlName="transportadora" type="zona" class="form-control" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check form-switch">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                            <label class="form-check-label" for="flexSwitchCheckChecked">Estado</label>
-                        </div>
-                    </div>
-                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!--UPDATE HERRAMIENTAS-->
-                <button *ngIf="tableSelected == 'Herramientas'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateTool()">Update</button>
-                <!--UPDATE LISTA DETALLE-->
-                <button *ngIf="tableSelected == 'Listadetalle'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateListDetail()">Update</button>
-                <!--UPDATE MONEDAS-->
-                <button *ngIf="tableSelected == 'Monedas'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateCoin()">Update</button>
-                <!--UPDATE PARAMETROS-->
-                <button *ngIf="tableSelected == 'Parametros'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateParametro()">Update</button>
-                <!--UPDATE PROVEEDORES-->
-                <button *ngIf="tableSelected == 'Proveedores'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateProveedor()">Update</button>
-                <!--UPDATE RANGOS-->
-                <button *ngIf="tableSelected == 'RangosUSD'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateRango()">Update</button>
-                <!--UPDATE TARIFAS-->
-                <button *ngIf="tableSelected == 'Tarifas'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateTarifa()">Update</button>
-                <!--UPDATE Trm-->
-                <button *ngIf="tableSelected == 'Trm'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateTrm()">Update</button>
+
                 <!--UPDATE Usuarios-->
-                <button *ngIf="tableSelected == 'Usuarios'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateUsuario()">Update</button>
-                <!--UPDATE Vartarifas-->
-                <button *ngIf="tableSelected == 'Vartarifas'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateVartarifa()">Update</button>
-                <!--UPDATE ZonaMoneda-->
-                <button *ngIf="tableSelected == 'Zona_Moneda'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateZonaMoneda()">Update</button>
-                <!--UPDATE ZonaProveedor-->
-                <button *ngIf="tableSelected == 'Zona_Proveedor'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateZonaProveedor()">Update</button>
-                <!--UPDATE Zonas-->
-                <button *ngIf="tableSelected == 'Zonas'" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateZonas()">Update</button>
+                <button *ngIf="!buttonUser" type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="updateUsuario()">Update</button>
+                <!--Create Usuarios-->
+                <button *ngIf="buttonUser" type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="CreateUsuario()">Create</button>
             </div>
         </div>
     </div>
