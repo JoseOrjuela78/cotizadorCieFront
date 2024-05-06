@@ -385,6 +385,9 @@ updateQuoteDet(){
       console.log({ "gettotal": response });
       this.quoteTotList = response.body.totalDto
 
+         this.listar(this.id_quote);
+
+
     });
 
   }
