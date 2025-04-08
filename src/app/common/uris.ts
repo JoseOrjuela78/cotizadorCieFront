@@ -1,6 +1,6 @@
 const BASE = {
- // BACKEND : 'http://localhost:3005/'
-  BACKEND : '/'
+  BACKEND : 'http://localhost:3005/'
+  //BACKEND : '/'
 
 }
 
