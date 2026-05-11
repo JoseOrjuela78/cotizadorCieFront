@@ -11,6 +11,9 @@
             <li class="nav-item active">
                 <a class="nav-link" routerLink="verQuote">Ver Cotización</a>
             </li>
+            <li class="nav-item active">
+                 <a *ngIf="idRol == '1'|| idRol == '3'" class="nav-link" routerLink="stock">Reportes</a>
+            </li>
             <li class="nav-item">
                 <a *ngIf="idRol == '1'" class="nav-link" routerLink="upload">Carga Masiva</a>
             </li>

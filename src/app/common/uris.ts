@@ -1,5 +1,5 @@
 const BASE = {
-  BACKEND : 'http://localhost:3005/'
+  BACKEND : true ?'http://192.168.100.100:3006/':'http://localhost:3005/'
   //BACKEND : '/'
 
 }
@@ -43,6 +43,11 @@ refs:{
 tablas:{
   getTabla: BASE.BACKEND + 'api/tables-get',
   putTables: BASE.BACKEND + 'api/tables-upload'
+  }
+  ,
+  reports: {
+    stock: BASE.BACKEND + 'api/reports/stock',
+    generateCsv: BASE.BACKEND + 'api/reports/csv'
   }
 
 }
